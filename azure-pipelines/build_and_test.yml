@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - main
+      # - main
       - work/*
   tags:
     include:
@@ -34,7 +34,7 @@ steps:
 
   - script: |
       python -m pip install --upgrade pip
-      pip install -vvv wheel
+      pip install wheel
       pip install msfontbin
       pip install msfontlib
     displayName: "Install dependencies"
