@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      # - main
+      - main
       - work/*
   tags:
     include:
@@ -12,74 +12,27 @@ trigger:
 
 strategy:
   matrix:
-    Windows_Python38:
-      imageName: "windows-latest"
-      python.version: "3.8"
+    Linux_Python38:
+      imageName: 'ubuntu-latest'
+      python.version: '3.8'
 
 pool:
   vmImage: $(imageName)
 
+# Enable debug mode
+# variables:
+#   System.Debug: true
+
+resources:
+  repositories:
+    - repository: ado-scripts
+      name: MSFontTools/ado-scripts
+      type: git
+      ref: main #branch name
+
 steps:
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: "$(python.version)"
-    displayName: "Use Python $(python.version)"
-
-  - task: PipAuthenticate@1
-    displayName: "Pip Authenticate"
-    inputs:
-      # Provide list of feed names which you want to authenticate.
-      # Project scoped feeds must include the project name in addition to the feed name.
-      artifactFeeds: MSFontTools/MSFontToolsPyPI
-
-  - script: |
-      python -m pip install --upgrade pip
-      pip install wheel
-      pip install msfontbin
-      pip install msfontlib
-    displayName: "Install dependencies"
-
-  - script: |
-      msfl build --include=instances,webfonts
-    displayName: "Build Fonts"
-
-  - publish: $(System.DefaultWorkingDirectory)/Release
-    artifact: fonts_release
-    displayName: "Publish Final Fonts as Artifacts"
-
-  - publish: $(System.DefaultWorkingDirectory)/build
-    artifact: fonts_build
-    displayName: "Publish Intermediate Fonts as Artifacts"
-    # We publish artifacts before testing, so we can manually
-    # inspect even if the tests fail.
-
-  - script: |
-      msfl validate
-    displayName: "Run Validation Tests"
-
-  # Regress is not yet enabled, as it has not yet been set up
-  # - script: |
-  #     msfl regress ...
-  #   displayName: 'Run Regression Tests'
-
-  - script: |
-      pip install twine
-      msfl pack
-    # Only publish if we're triggered from a tag
-    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
-    displayName: "Build Distribution Archive"
-
-  - task: TwineAuthenticate@1
-    # Only publish if we're triggered from a tag
-    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
-    inputs:
-      artifactFeed: msfontreleases
-    displayName: "Twine Authenticate"
-
-  # Use command line script to 'twine upload', use -r to pass the repository name and --config-file to pass the environment variable set by the authenticate task.
-  - script: |
-      python -m twine upload -r msfontreleases --config-file $(PYPIRC_PATH) dist/*.whl
-      python -m twine upload -r msfontreleases --config-file $(PYPIRC_PATH) dist/*.zip
-    displayName: "Twine Upload"
-    # Only publish if we're triggered from a tag
-    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+  - template: font-pipelines/font-build-test-publish.yaml@ado-scripts
+    parameters:
+      use_standalone: true
+      regress: false
+      validate: false
