@@ -36,3 +36,4 @@ steps:
       use_standalone: true
       regress: false
       validate: false
+      save_build_artifacts: false # Turn this back on when we actually have a font to build
