@@ -8,12 +8,7 @@ tmp*.py
 dist.sh
 *.backup
 
-Release/*.ttf
-Release/webfonts
-Release/test*
-Release/masters
-Release/instances
-Release/webfonts
+Release/
 
 Bugs/*
 
@@ -28,6 +23,7 @@ tmp/*
 
 /build/
 /venv/
+ref/
 
 *.log
 *.bat
