@@ -1,4 +1,5 @@
 trigger:
+  batch: true # Batch multiple commits to the same branch into a single invocation
   branches:
     include:
       - main
