@@ -1,6 +1,6 @@
 # Overview
 
-This project contains the sources for a revival of Bembo.
+This project contains the sources for **INSERT_TYPEFACE_FAMILY_NAME_HERE**.
 
 # Repository Contents
 
