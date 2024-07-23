@@ -9,6 +9,7 @@ This project contains the sources for **INSERT_TYPEFACE_FAMILY_NAME_HERE**.
 - `Tests` &ndash; test scripts and HMTL files for testing the released font (expected to be in the `Release` directory)
 - `Artifacts` &ndash; interesting and useful artifacts generated during the project
 - `azure-pipelines` $ndash; scripts for automated cloud-based builds
+- `project.yaml` &ndash; the configuration file for `msfl` and the build/test process
 
 # Getting Started
 
@@ -17,6 +18,8 @@ This project contains the sources for **INSERT_TYPEFACE_FAMILY_NAME_HERE**.
 2) Follow the instructions in [Setting up the build environment](#setting-up-the-build-enironment).
 
 3) Read through Branches.md to understand our branch naming conventions.
+
+4) If this is a new font project, add your source files in the `Source` directory and configure `project.yaml` for your new font project.
 
 # Cloning this repository
 
@@ -127,106 +130,50 @@ Please see [Branches.md](Branches.md) for a discussion of the branch naming conv
 
 # Setting up the build environment
 
-The build enviroment uses python3. It is highly recommended to use python virtual environments to set everything up. Virtual environments are a container for python libraries. In addition to keeping everything tidier, and not having to use `sudo` to install libraries, virtual environments allow you to keep different versions of python libraries side by side. This is particularly useful for font development tools. The primary python libraries used by this build process, fontTools and fontmake, are in very active development and change rapidly. Virtual environments give you a way to keep a stable, tried and true version, and a bleeding-edge or development version, and easily switch between the two. 
+Microsoft project use the `msfontlib`/`msfl` system to build, test, regress, and package fonts. You can find detailed instructions on using msfl on the [wiki](https://mstypography.visualstudio.com/MSFontTools/_wiki/wikis/MSFontTools.wiki/).
 
-This build environment saves the version of tools used to make a font in the bild tag of the font’s meta table. This makes it easy to track down how a given font was made.
+To run `msfl` locally on your machine, you have two options:
 
-## System requirements
+1) Run a standalone executable. Setup is fairly easy and there are no other dependencies or system requirements. This option is slightly slower than option 2, below.
 
-### Mac
+2) Install `msfontlib` as a python module in a virtual environment. For those who have a python environment and are already used to working with python modules.
 
-- Python 3.7
-- Homebrew
+## Setup instructions: Standalone executable
 
-### Windows
+1. Go to the [`msfontlib` releases page](https://github.com/microsoft/msfontlib/releases) and download the latest version for your operating system.
 
-- Python 3.7
+1. Unzip the zip file, which will only contain a single file: the `msfl` executable.
 
-## Setup instructions
+1. Copy the executable to somewhere that is in your path.
 
-1. If you are not already using python virtual environments, create the directory in which to store all your virtual environments. In the examples below, we will assume you are using `~/py-env` (mac), or `\python\py-env (win)`.
+   On a mac: copy the file to either `/usr/local/bin` or `/opt/homebrew/bin`, whichever is present.
 
-   ```bash
-   mkdir ~/py-env
-   ```
+   On windows: you will need to create a directory, then go to System Properties -> Environment and edit your path to include that directory.
 
-2. Create a virtual environment for this project (e.g neuehaas).
+1. To test if it works, open a command-line window and run `msfl --version`. You should see the version that you downloaded.
 
-   ```bash
-   python3 -m venv ~/py-env/neuehaas
-   ```
+## Setup instructions: python module
 
-3. Activate the virtual environment.
+1. Create a virtual environment for font development.
 
-   Mac:
+1. Clone the `msfontlib` repository somewhere
 
-   ```bash
-   source ~/py-env/neuehaas/bin/activate
-   ```
+    ```bash
+    git clone https://github.com/microsoft/msfontlib.git
+    ```
 
-   Windows:
-
-   ```cmd
-   \python\py-env\neuehaas\scripts\activate
-   ```
-
-   Your prompt should change to show the name of your active virtual environment `(neuehaas)`.
-
-4. Install the required python libraries. The following assumes you have cloned the repository to ~/git/NeueHaasGrotesk
+1. Install with pip
 
    ```bash
-   cd ~/git/NeueHaasGrotesk
-   pip3 install -r requirements.txt
+   pip install -e msfontlib
    ```
 
 # Building the font
 
-First, set up the build environment as described in [Setting up the build environment](#setting-up-the-build-enironment), above.
+Building the font is easy with msfl:
 
-1. Activate the virtual environment if you haven't already
+```bash
+msfl build
+```
 
-   Mac:
-
-   ```bash
-   source ~/py-env/neuehaas/bin/activate
-   ```
-
-   Windows:
-
-   ```cmd
-   \python\py-env\bin\activate
-   ```
-
-   Your prompt should change to show the name of your active virtual environment `(neuehaas)`.
-
-2. Go to the Source directory of your local repository (e.g. `~/git/NeueHaasGrotesk/Source`)
-
-   ```bash
-   cd ~/git/NeueHaasGrotesk/Source
-   ```
-
-3. Build the font as follows:
-
-   ```bash
-   python3 build.py
-   ```
-
-   The fonts will be placed in the project's `Release` directory.
-
-   By default, the build script will build the roman and the italic, but only if the UFO files are newer than the corresponding TTFs. You can force the build script to build the TTFs regardless of the UFOs date by including the `--force` parameter.
-
-   You can also build individual fonts by specifying the target on the command-line:
-
-    ```bash
-    python3 build.py roman
-    ```
-
-4. On a Windows machine, load the fonts in VTT, hit Tools/Compile/Compile Everything for All Glyphs. Save the font, and Tools/Ship the font to produce the final binary font for shipment.
-
-## Build targets
-
-- `roman` &ndash; the Roman version of the font.
-- `italic` &ndash; the Italic version of the font.
-
-## Hinting the fonts
-The build process integrates TT hints stored in TTF files (`Source/vtt`). 
+You can find detailed instructions on using msfl on the [wiki](https://mstypography.visualstudio.com/MSFontTools/_wiki/wikis/MSFontTools.wiki/).
