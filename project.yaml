@@ -1,10 +1,95 @@
-# Stub project.yaml
+# This file is used to configure the build and test process for a font project.
 
-# The following does practically nothing. It is present simply so that msfl
-# automated builds run but don't fail until a real project.yaml is set up. The
-# following should be deleted when this file is filled out with real data.
-null_target:
-  build_plan: validate_only
-  output_filename: fake_font.ttf
+# The following is just a placeholder. You should review every setting and
+# update it accordingly (especially, anything that has "placeholder" in it).
 
-    
+placeholder_target:
+  project_name: placeholder
+  build_plan: glyphs_to_variable_font
+  sources:
+    glyphs: Source/Placeholder.glyphs
+  output_filename: Placeholder.ttf
+  font_version: 1.23 # Placeholder version number
+  tables:
+    meta:
+      slng: Latn # Placeholder script
+      dlng: Latn # Placeholder script
+      bild: '{toolchain_versions}; project git revision: {git_revision}'
+    name:
+      3: Placeholder Regular
+      6: PlaceholderFont
+      11: https://docs.microsoft.com/typography/
+      13: Microsoft supplied font. You may use this font to create, display,
+        and print content as permitted by the license terms or terms of use,
+        of the Microsoft product, service, or content in which this font was
+        included. You may only (i) embed this font in content as permitted by
+        the embedding restrictions included in this font; and (ii) temporarily
+        download this font to a printer or other output device to help print
+        content. Any other use is prohibited.
+      14: https://docs.microsoft.com/typography/
+    hhea: # Placeholder: this is for this font only. Delete this and set hhea accordingly in sources.
+      ascent: 1895
+      descent: 536
+    STAT: # Placeholder: this STAT table is for the placeholder font; update accordingly.
+      axes:
+        - tag: opsz
+          name: Optical Size
+          ordering: 0
+          values:
+            - name: Small
+              value: 6
+            - name: Note
+              value: 8
+            - name: Regular
+              value: 10
+              flags: 0x2
+            - name: Subhead
+              value: 18
+            - name: Header
+              value: 27
+            - name: Display
+              value: 36
+        - tag: wdth
+          name: Width
+          ordering: 2
+          values:
+            - name: Narrow
+              value: 75
+            - name: SemiNarrow
+              value: 87.5
+            - name: Regular
+              value: 100
+              flags: 0x2
+            - name: SemiWide
+              value: 112.5
+            - name: Wide
+              value: 125
+        - tag: wght
+          name: Weight
+          ordering: 1
+          values:
+            - name: Thin
+              value: 100
+            - name: ExtraLight
+              value: 200
+            - name: Light
+              value: 300
+            - name: SemiLight
+              value: 350
+            - name: Regular
+              value: 400
+              flags: 0x2
+            - name: SemiBold
+              value: 600
+            - name: Bold
+              value: 700
+            - name: ExtraBold
+              value: 800
+            - name: Black
+              value: 900
+  validation:
+    # The following is just for the placeholder font. Delete it and begin your
+    # testing with no exclusions.
+    exclude:
+      - com.google.fonts/check/whitespace_glyphs
+      - com.google.fonts/check/os2_metrics_match_hhea
