@@ -1,3 +1,21 @@
+variables:
+  main_branch: 'main' # Main branch name (master or main)
+  # py_version: '3.10' # Python version to use
+  vm_image: 'ubuntu-latest' # VM image to use
+  use_standalone: false # Use the standalone version of msfl
+  validate: true # Validate the font
+  regress: true # Run the regression tests
+  publish: true # Publish the font to msfontreleases
+  System.Debug: true # Turn on ADO debug logging
+
+schedules:
+  - cron: '0 8 * * Sun' # 8am UTC on Sunday
+    displayName: Weekly Sunday build
+    branches:
+      include:
+        - master
+    always: true
+
 trigger:
   batch: true # Batch multiple commits to the same branch into a single invocation
   branches:
@@ -11,30 +29,22 @@ trigger:
     exclude:
       - Artifacts
 
-strategy:
-  matrix:
-    Linux_Python38:
-      imageName: 'ubuntu-latest'
-      python.version: '3.8'
-
 pool:
-  vmImage: $(imageName)
-
-# Enable debug mode
-# variables:
-#   System.Debug: true
+  vmImage: $(vm_image)
 
 resources:
   repositories:
     - repository: ado-scripts
       name: MSFontTools/ado-scripts
       type: git
-      ref: main #branch name
+      ref: 'main' #branch name
 
-steps:
-  - template: font-pipelines/font-build-test-publish.yaml@ado-scripts
-    parameters:
-      use_standalone: true
-      regress: false
-      validate: false
-      save_build_artifacts: false # Turn this back on when we actually have a font to build
+stages:
+  - stage: build_test_publish
+    jobs:
+      - template: font-pipelines/font-build-test-publish.yaml@ado-scripts
+        parameters:
+          # py_version: ${{ variables.py_version }}
+          validate: ${{ variables.validate }}
+          regress: ${{ variables.regress }}
+          publish: ${{ variables.publish }}
