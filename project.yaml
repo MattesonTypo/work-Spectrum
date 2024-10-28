@@ -1,95 +1,113 @@
-# This file is used to configure the build and test process for a font project.
+# This file is used to configure the build and test process for SpectrumNow
 
-# The following is just a placeholder. You should review every setting and
-# update it accordingly (especially, anything that has "placeholder" in it).
-
-placeholder_target:
-  project_name: placeholder
-  build_plan: glyphs_to_variable_font
+roman: # These settings are unique for the respective font. Shared settings are in _common.
+  base: _common
   sources:
-    glyphs: Source/Placeholder.glyphs
-  output_filename: Placeholder.ttf
-  font_version: 1.23 # Placeholder version number
+    glyphs: Source/SpectrumNow.glyphs
+  output_filename: SpectrumNowVar.ttf
   tables:
+    name:
+      1: Spectrum Now Var
+      2: Regular
+      3: The Monotype Corporation:Spectrum Now Var:2024
+      4: Spectrum Now Var
+      6: SpectrumNowVar
+      25: SpectrumNowVar
+    STAT:
+      axes:
+        - tag: ital
+          name: Italic
+          ordering: 2
+          values:
+            - name: Regular
+              value: 0
+              flags: 0x2
+italic: # These settings are unique for the respective font. Shared settings are in _common.
+  base: _common
+  sources:
+    glyphs: Source/SpectrumNow-Italic.glyphs
+  output_filename: SpectrumNowVar-Italic.ttf
+  tables:
+    name:
+      1: Spectrum Now Var
+      2: Italic
+      3: The Monotype Corporation:Spectrum Now Var Italic:2024
+      4: Spectrum Now Var Italic
+      6: SpectrumNowVarItalic
+      25: SpectrumNowVarItalic
+    STAT:
+      axes:
+        - tag: ital
+          name: Italic
+          ordering: 2
+          values:
+            - name: Italic
+              value: 1
+
+
+_common: # _common are the settings that are shared between the roman and italic.
+  project_name: Spectrum
+  build_plan: glyphs_to_variable_font
+  font_version: 1.00
+  action_scripts:
+    - Source/build_actions.py
+  actions:
+    - name: filter_bg_layers
+    - name: remove_name_id
+      argument: (16, 17)
+  tables:
+    head:
+      fontRevision: '{font_version}'
     meta:
-      slng: Latn # Placeholder script
-      dlng: Latn # Placeholder script
+      dlng: Latn
+      slng: Latn
       bild: '{toolchain_versions}; project git revision: {git_revision}'
     name:
-      3: Placeholder Regular
-      6: PlaceholderFont
-      11: https://docs.microsoft.com/typography/
-      13: Microsoft supplied font. You may use this font to create, display,
-        and print content as permitted by the license terms or terms of use,
-        of the Microsoft product, service, or content in which this font was
-        included. You may only (i) embed this font in content as permitted by
-        the embedding restrictions included in this font; and (ii) temporarily
-        download this font to a printer or other output device to help print
-        content. Any other use is prohibited.
-      14: https://docs.microsoft.com/typography/
-    hhea: # Placeholder: this is for this font only. Delete this and set hhea accordingly in sources.
-      ascent: 1895
-      descent: 536
-    STAT: # Placeholder: this STAT table is for the placeholder font; update accordingly.
+      0: '© 2024 The Monotype Corporation. All Rights Reserved.'
+      5: 'Version 1.00'
+      8: 'The Monotype Corporation'
+      9: 'Jan van Krimpen, Steve Matteson'
+      11: 'https://microsoft.com/'
+      12: 'https://mattesontypographics.com/'
+      13: 'Microsoft supplied font. You may use this font to create, display, and print content as permitted by the license terms or terms of use, of the Microsoft product, service, or content in which this font was included. You may only (i) embed this font in content as permitted by the embedding restrictions included in this font; and (ii) temporarily download this font to a printer or other output device to help print content. Any other use is prohibited.'
+      14: 'https://docs.microsoft.com/typography/about'
+    OS/2:
+      achVendID: 'TMC '
+      sTypoAscender: 1102
+      sTypoDescender: -288
+      sTypoLineGap: 0
+      fsType: 8
+    hhea:
+      ascent: 1102
+      descent: -288
+      lineGap: 0
+    STAT:
       axes:
         - tag: opsz
-          name: Optical Size
+          name: Optical size
           ordering: 0
           values:
             - name: Small
               value: 6
-            - name: Note
-              value: 8
             - name: Regular
-              value: 10
+              value: 16
               flags: 0x2
-            - name: Subhead
-              value: 18
-            - name: Header
-              value: 27
-            - name: Display
-              value: 36
-        - tag: wdth
-          name: Width
-          ordering: 2
-          values:
-            - name: Narrow
-              value: 75
-            - name: SemiNarrow
-              value: 87.5
-            - name: Regular
-              value: 100
-              flags: 0x2
-            - name: SemiWide
-              value: 112.5
-            - name: Wide
-              value: 125
+            - name: Disp
+              value: 60
         - tag: wght
           name: Weight
           ordering: 1
           values:
-            - name: Thin
-              value: 100
-            - name: ExtraLight
-              value: 200
-            - name: Light
-              value: 300
-            - name: SemiLight
-              value: 350
             - name: Regular
               value: 400
               flags: 0x2
-            - name: SemiBold
+            - name: SmBd
               value: 600
             - name: Bold
               value: 700
-            - name: ExtraBold
+            - name: XBd
               value: 800
-            - name: Black
-              value: 900
   validation:
-    # The following is just for the placeholder font. Delete it and begin your
-    # testing with no exclusions.
-    exclude:
-      - com.google.fonts/check/whitespace_glyphs
-      - com.google.fonts/check/os2_metrics_match_hhea
+    profile_modules:
+      - fontbakery.profiles.universal
+      - fontbakery.profiles.microsoft
