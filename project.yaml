@@ -22,6 +22,7 @@ roman: # These settings are unique for the respective font. Shared settings are 
             - name: Regular
               value: 0
               flags: 0x2
+              linkedValue: 1
 italic: # These settings are unique for the respective font. Shared settings are in _common.
   base: _common
   sources:
@@ -43,6 +44,7 @@ italic: # These settings are unique for the respective font. Shared settings are
           values:
             - name: Italic
               value: 1
+              linkedValue: 0
 
 
 _common: # _common are the settings that are shared between the roman and italic.
@@ -105,6 +107,7 @@ _common: # _common are the settings that are shared between the roman and italic
               value: 600
             - name: Bold
               value: 700
+              linkedValue: 400
             - name: XBd
               value: 800
   validation:
