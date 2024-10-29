@@ -44,7 +44,6 @@ italic: # These settings are unique for the respective font. Shared settings are
           values:
             - name: Italic
               value: 1
-              linkedValue: 0
 
 
 _common: # _common are the settings that are shared between the roman and italic.
@@ -75,14 +74,12 @@ _common: # _common are the settings that are shared between the roman and italic
       14: 'https://docs.microsoft.com/typography/about'
     OS/2:
       achVendID: 'TMC '
-      sTypoAscender: 1102
+      sTypoAscender: 1118
       sTypoDescender: -288
       sTypoLineGap: 0
+      usWinAscent: 1118
+      usWinDescent: 288
       fsType: 8
-    hhea:
-      ascent: 1102
-      descent: -288
-      lineGap: 0
     STAT:
       axes:
         - tag: opsz
@@ -103,11 +100,11 @@ _common: # _common are the settings that are shared between the roman and italic
             - name: Regular
               value: 400
               flags: 0x2
+              linkedValue: 700
             - name: SmBd
               value: 600
             - name: Bold
               value: 700
-              linkedValue: 400
             - name: XBd
               value: 800
   validation:
