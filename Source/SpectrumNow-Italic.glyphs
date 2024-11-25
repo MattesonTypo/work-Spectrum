@@ -1232,7 +1232,7 @@ sub Wgrave.swsh by Wgrave.swsh.ss01;
 labels = (
 {
 language = dflt;
-value = "Name:";
+value = "Alternate Swash E, K, R and W";
 }
 );
 tag = ss01;
@@ -122508,7 +122508,7 @@ width = 326;
 {
 color = 3;
 glyphname = one.sups;
-lastChange = "2024-08-06 02:14:08 +0000";
+lastChange = "2024-11-21 10:51:19 +0000";
 layers = (
 {
 layerId = "3F96BAE2-444C-49D6-BFC1-9C0488685DF2";
@@ -122551,11 +122551,12 @@ ref = one.dnom;
 width = 326;
 }
 );
+unicode = 185;
 },
 {
 color = 3;
 glyphname = two.sups;
-lastChange = "2024-08-06 02:14:08 +0000";
+lastChange = "2024-11-21 10:51:28 +0000";
 layers = (
 {
 layerId = "3F96BAE2-444C-49D6-BFC1-9C0488685DF2";
@@ -122598,11 +122599,12 @@ ref = two.dnom;
 width = 326;
 }
 );
+unicode = 178;
 },
 {
 color = 3;
 glyphname = three.sups;
-lastChange = "2024-08-06 02:14:08 +0000";
+lastChange = "2024-11-21 10:51:34 +0000";
 layers = (
 {
 layerId = "3F96BAE2-444C-49D6-BFC1-9C0488685DF2";
@@ -122645,6 +122647,7 @@ ref = three.dnom;
 width = 326;
 }
 );
+unicode = 179;
 },
 {
 color = 3;
