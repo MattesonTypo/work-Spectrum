@@ -12,6 +12,8 @@ roman: # These settings are unique for the respective font. Shared settings are 
       3: The Monotype Corporation:Spectrum Now Var:2024
       4: Spectrum Now Var
       6: SpectrumNowVar
+      16: Spectrum Now Var
+      17: Regular
       25: SpectrumNowVar
     STAT:
       axes:
@@ -35,6 +37,8 @@ italic: # These settings are unique for the respective font. Shared settings are
       3: The Monotype Corporation:Spectrum Now Var Italic:2024
       4: Spectrum Now Var Italic
       6: SpectrumNowVarItalic
+      16: Spectrum Now Var
+      17: Italic
       25: SpectrumNowVarItalic
     STAT:
       axes:
@@ -50,12 +54,12 @@ _common: # _common are the settings that are shared between the roman and italic
   project_name: Spectrum
   build_plan: glyphs_to_variable_font
   font_version: 1.00
-  action_scripts:
-    - Source/build_actions.py
-  actions:
-    - name: filter_bg_layers
-    - name: remove_name_id
-      argument: (16, 17)
+  # action_scripts:
+  #   - Source/build_actions.py
+  # actions:
+  #   - name: filter_bg_layers
+  #   - name: remove_name_id
+  #     argument: (16, 17)
   tables:
     head:
       fontRevision: '{font_version}'
