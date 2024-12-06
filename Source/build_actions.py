@@ -19,3 +19,10 @@ def remove_name_id(context, argument):
     for n in name_table.names:
         if n.nameID in nid_to_remove:
             name_table.removeNames(n.nameID, n.platformID, n.platEncID, n.langID)
+
+@post_action("post_processing")
+def remove_tables(context, argument):
+    tables_to_remove = argument.split(",")
+    for table in tables_to_remove:
+        if table in context.tt_font:
+            del context.tt_font[table]
