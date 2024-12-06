@@ -1,18 +1,20 @@
 # This file is used to configure the build and test process for SpectrumNow
 
 roman: # These settings are unique for the respective font. Shared settings are in _common.
-  base: _common
+  base:
+    - _common
+    - _ms_common
   sources:
     glyphs: Source/SpectrumNow.glyphs
   output_filename: SpectrumNowVar.ttf
   tables:
     name:
-      1: Spectrum Now Var
+      1: Spectrum Now
       2: Regular
-      3: The Monotype Corporation:Spectrum Now Var:2024
-      4: Spectrum Now Var
+      3: The Monotype Corporation:Spectrum Now:2024
+      4: Spectrum Now
       6: SpectrumNowVar
-      16: Spectrum Now Var
+      16: Spectrum Now
       17: Regular
       25: SpectrumNowVar
     STAT:
@@ -26,18 +28,20 @@ roman: # These settings are unique for the respective font. Shared settings are 
               flags: 0x2
               linkedValue: 1
 italic: # These settings are unique for the respective font. Shared settings are in _common.
-  base: _common
+  base:
+    - _common
+    - _ms_common
   sources:
     glyphs: Source/SpectrumNow-Italic.glyphs
   output_filename: SpectrumNowVar-Italic.ttf
   tables:
     name:
-      1: Spectrum Now Var
+      1: Spectrum Now
       2: Italic
-      3: The Monotype Corporation:Spectrum Now Var Italic:2024
-      4: Spectrum Now Var Italic
+      3: The Monotype Corporation:Spectrum Now Italic:2024
+      4: Spectrum Now Italic
       6: SpectrumNowVarItalic
-      16: Spectrum Now Var
+      16: Spectrum Now
       17: Italic
       25: SpectrumNowVarItalic
     STAT:
@@ -49,17 +53,60 @@ italic: # These settings are unique for the respective font. Shared settings are
             - name: Italic
               value: 1
 
+roman_MT: # These settings are unique for the respective font. Shared settings are in _common.
+  base:
+    - _common
+    - _mt_common
+  sources:
+    glyphs: Source/SpectrumNow.glyphs
+  output_filename: SpectrumNowVar.ttf
+  tables:
+    name:
+      1: Spectrum Now Var
+      2: Regular
+      3: The Monotype Corporation:Spectrum Now Var:2024
+      4: Spectrum Now Var
+      6: SpectrumNowVar
+      25: SpectrumNowVar
+    STAT:
+      axes:
+        - tag: ital
+          name: Italic
+          ordering: 2
+          values:
+            - name: Regular
+              value: 0
+              flags: 0x2
+              linkedValue: 1
+
+italic_MT: # These settings are unique for the respective font. Shared settings are in _common.
+  base:
+    - _common
+    - _mt_common
+  sources:
+    glyphs: Source/SpectrumNow-Italic.glyphs
+  output_filename: SpectrumNowVar-Italic.ttf
+  tables:
+    name:
+      1: Spectrum Now Var
+      2: Italic
+      3: The Monotype Corporation:Spectrum Now Var Italic:2024
+      4: Spectrum Now Var Italic
+      6: SpectrumNowVarItalic
+      25: SpectrumNowVarItalic
+    STAT:
+      axes:
+        - tag: ital
+          name: Italic
+          ordering: 2
+          values:
+            - name: Italic
+              value: 1
 
 _common: # _common are the settings that are shared between the roman and italic.
   project_name: Spectrum
   build_plan: glyphs_to_variable_font
   font_version: 1.00
-  # action_scripts:
-  #   - Source/build_actions.py
-  # actions:
-  #   - name: filter_bg_layers
-  #   - name: remove_name_id
-  #     argument: (16, 17)
   tables:
     head:
       fontRevision: '{font_version}'
@@ -76,14 +123,6 @@ _common: # _common are the settings that are shared between the roman and italic
       12: 'https://mattesontypographics.com/'
       13: 'Microsoft supplied font. You may use this font to create, display, and print content as permitted by the license terms or terms of use, of the Microsoft product, service, or content in which this font was included. You may only (i) embed this font in content as permitted by the embedding restrictions included in this font; and (ii) temporarily download this font to a printer or other output device to help print content. Any other use is prohibited.'
       14: 'https://docs.microsoft.com/typography/about'
-    OS/2:
-      achVendID: 'TMC '
-      sTypoAscender: 1118
-      sTypoDescender: -288
-      sTypoLineGap: 0
-      usWinAscent: 1118
-      usWinDescent: 288
-      fsType: 8
     STAT:
       axes:
         - tag: opsz
@@ -112,6 +151,52 @@ _common: # _common are the settings that are shared between the roman and italic
             - name: XBd
               value: 800
   validation:
+    profile_modules:
+      - fontbakery.profiles.universal
+      - fontbakery.profiles.microsoft
+
+_ms_common:
+  tables:
+    OS/2:
+      achVendID: 'TMC '
+      sTypoAscender: 1118
+      sTypoDescender: -288
+      sTypoLineGap: 0
+      usWinAscent: 1118
+      usWinDescent: 288
+      fsType: 8
+
+_mt_common: # _mt_common are the settings that are shared for the roman and italic Monotype versions
+  # project_name: Spectrum
+  # build_plan: glyphs_to_variable_font
+  # font_version: 1.00
+  release_dir: Release/Release_MT
+  build_options:
+    flatten_components: True
+  action_scripts:
+    - Source/build_actions.py
+  actions:
+    - name: remove_name_id
+      argument: (16, 17)
+    - name: remove_tables
+      argument: 'meta'
+  tables:
+    head:
+      fontRevision: '{font_version}'
+    OS/2:
+      achVendID: 'MONO'
+      sTypoAscender: 708
+      sTypoDescender: -297
+      sTypoLineGap: 200
+      usWinAscent: 1102
+      usWinDescent: 288
+      fsType: 4
+    hhea:
+      ascent: 1102
+      descent: -288
+
+  validation:
+    validation_group: mt
     profile_modules:
       - fontbakery.profiles.universal
       - fontbakery.profiles.microsoft
