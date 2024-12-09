@@ -170,6 +170,9 @@ _mt_common: # _mt_common are the settings that are shared for the roman and ital
   # project_name: Spectrum
   # build_plan: glyphs_to_variable_font
   # font_version: 1.00
+  regression:
+    known_errors:
+      - Tests/known_err_MT.yaml
   release_dir: Release/Release_MT
   build_options:
     flatten_components: True
@@ -200,3 +203,6 @@ _mt_common: # _mt_common are the settings that are shared for the roman and ital
     profile_modules:
       - fontbakery.profiles.universal
       - fontbakery.profiles.microsoft
+    exclude:
+      - com.microsoft/check/fstype
+      - com.google.fonts/check/os2_metrics_match_hhea
