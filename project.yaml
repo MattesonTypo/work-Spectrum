@@ -77,10 +77,6 @@ _common: # These settings are shared between all fonts (Microsoft AND Monotype)
   tables:
     head:
       fontRevision: '{font_version}'
-    # meta:
-    #   dlng: Latn
-    #   slng: Latn
-    #   bild: '{toolchain_versions}; project git revision: {git_revision}'
     name:
       0: '© 2024 The Monotype Corporation. All Rights Reserved.'
       9: 'Jan van Krimpen, Steve Matteson'
