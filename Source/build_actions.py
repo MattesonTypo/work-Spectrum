@@ -21,6 +21,14 @@ def remove_name_id(context, argument):
             name_table.removeNames(n.nameID, n.platformID, n.platEncID, n.langID)
 
 @post_action("post_processing")
+def remove_name_plattform(context, argument):
+    remove_plattform = int(argument)
+    name_table = context.tt_font["name"]
+    for n in name_table.names:
+        if n.platformID == remove_plattform:
+            name_table.removeNames(n.nameID, n.platformID, n.platEncID, n.langID)
+
+@post_action("post_processing")
 def remove_tables(context, argument):
     tables_to_remove = argument.split(",")
     for table in tables_to_remove:
