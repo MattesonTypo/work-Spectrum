@@ -10,7 +10,6 @@ roman: # Microsoft fonts
   output_filename: SpectrumNow.ttf
   tables:
     name:
-      1: Spectrum Now
       2: Regular
       3: The Monotype Corporation:Spectrum Now:2024
       4: Spectrum Now
@@ -29,7 +28,6 @@ italic: # Microsoft fonts
   output_filename: SpectrumNow-Italic.ttf
   tables:
     name:
-      1: Spectrum Now
       2: Italic
       3: The Monotype Corporation:Spectrum Now Italic:2024
       4: Spectrum Now Italic
@@ -119,6 +117,7 @@ _ms_common: # Settings specific to the Microsoft fonts (upright and italic)
       slng: Latn
       bild: '{toolchain_versions}; project git revision: {git_revision}'
     name:
+      1: Spectrum Now
       5: Version 1.00
       8: The Monotype Corporation
       11: https://microsoft.com/
@@ -133,6 +132,10 @@ _ms_common: # Settings specific to the Microsoft fonts (upright and italic)
       usWinAscent: 1118
       usWinDescent: 288
       fsType: 8
+  validation:
+    validation_group: ms
+    exclude:
+      - com.google.fonts/check/varfont/regular_opsz_coord # Regular opsz coordinate is 6
 
 _mt_common: # Settings specific to the Monotype fonts (upright and italic)
   release_dir: Release/Release_MT
@@ -141,8 +144,6 @@ _mt_common: # Settings specific to the Monotype fonts (upright and italic)
   action_scripts:
     - Source/build_actions.py
   actions:
-    - name: remove_name_plattform
-      argument: 1
     - name: remove_name_id
       argument: (10, 16, 17)
     - name: remove_tables
