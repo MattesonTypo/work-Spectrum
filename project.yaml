@@ -1,95 +1,205 @@
-# This file is used to configure the build and test process for a font project.
+# This file is used to configure the build and test process for SpectrumNow
 
-# The following is just a placeholder. You should review every setting and
-# update it accordingly (especially, anything that has "placeholder" in it).
-
-placeholder_target:
-  project_name: placeholder
-  build_plan: glyphs_to_variable_font
+roman: # Microsoft fonts
+  base:
+    - _common
+    - _ms_common
+    - _roman_common
   sources:
-    glyphs: Source/Placeholder.glyphs
-  output_filename: Placeholder.ttf
-  font_version: 1.23 # Placeholder version number
+    glyphs: Source/SpectrumNow.glyphs
+  output_filename: SpectrumNow.ttf
   tables:
-    meta:
-      slng: Latn # Placeholder script
-      dlng: Latn # Placeholder script
-      bild: '{toolchain_versions}; project git revision: {git_revision}'
     name:
-      3: Placeholder Regular
-      6: PlaceholderFont
-      11: https://docs.microsoft.com/typography/
-      13: Microsoft supplied font. You may use this font to create, display,
-        and print content as permitted by the license terms or terms of use,
-        of the Microsoft product, service, or content in which this font was
-        included. You may only (i) embed this font in content as permitted by
-        the embedding restrictions included in this font; and (ii) temporarily
-        download this font to a printer or other output device to help print
-        content. Any other use is prohibited.
-      14: https://docs.microsoft.com/typography/
-    hhea: # Placeholder: this is for this font only. Delete this and set hhea accordingly in sources.
-      ascent: 1895
-      descent: 536
-    STAT: # Placeholder: this STAT table is for the placeholder font; update accordingly.
+      2: Regular
+      3: The Monotype Corporation:Spectrum Now:2024
+      4: Spectrum Now
+      6: SpectrumNowVar
+      16: Spectrum Now
+      17: Regular
+      25: SpectrumNowVar
+
+italic: # Microsoft fonts
+  base:
+    - _common
+    - _ms_common
+    - _italic_common
+  sources:
+    glyphs: Source/SpectrumNow-Italic.glyphs
+  output_filename: SpectrumNow-Italic.ttf
+  tables:
+    name:
+      2: Italic
+      3: The Monotype Corporation:Spectrum Now Italic:2024
+      4: Spectrum Now Italic
+      6: SpectrumNowVarItalic
+      16: Spectrum Now
+      17: Italic
+      25: SpectrumNowVarItalic
+
+roman_MT: # Monotype fonts
+  base:
+    - _common
+    - _mt_common
+    - _roman_common
+  sources:
+    glyphs: Source/SpectrumNow.glyphs
+  output_filename: SpectrumNowVar.ttf
+  tables:
+    name:
+      2: Regular
+      3: Monotype Imaging Inc.:Spectrum Now Var:2024
+      4: Spectrum Now Var
+      6: SpectrumNowVar_M
+      25: SpectrumNowVar
+
+italic_MT: # Monotype fonts
+  base:
+    - _common
+    - _mt_common
+    - _italic_common
+  sources:
+    glyphs: Source/SpectrumNow-Italic.glyphs
+  output_filename: SpectrumNowVar-Italic.ttf
+  tables:
+    name:
+      2: Italic
+      3: Monotype Imaging Inc.:Spectrum Now Var Italic:2024
+      4: Spectrum Now Var Italic
+      6: SpectrumNowVarItalic_M
+      25: SpectrumNowVarItalic
+
+_common: # These settings are shared between all fonts (Microsoft AND Monotype)
+  project_name: Spectrum
+  build_plan: glyphs_to_variable_font
+  font_version: 1.00
+  tables:
+    head:
+      fontRevision: '{font_version}'
+    name:
+      0: '© 2024 The Monotype Corporation. All Rights Reserved.'
+      9: 'Jan van Krimpen, Steve Matteson'
+    STAT:
       axes:
         - tag: opsz
-          name: Optical Size
+          name: Optical size
           ordering: 0
           values:
             - name: Small
               value: 6
-            - name: Note
-              value: 8
             - name: Regular
-              value: 10
+              value: 16
               flags: 0x2
-            - name: Subhead
-              value: 18
-            - name: Header
-              value: 27
-            - name: Display
-              value: 36
-        - tag: wdth
-          name: Width
-          ordering: 2
-          values:
-            - name: Narrow
-              value: 75
-            - name: SemiNarrow
-              value: 87.5
-            - name: Regular
-              value: 100
-              flags: 0x2
-            - name: SemiWide
-              value: 112.5
-            - name: Wide
-              value: 125
+            - name: Disp
+              value: 60
         - tag: wght
           name: Weight
           ordering: 1
           values:
-            - name: Thin
-              value: 100
-            - name: ExtraLight
-              value: 200
-            - name: Light
-              value: 300
-            - name: SemiLight
-              value: 350
             - name: Regular
               value: 400
               flags: 0x2
-            - name: SemiBold
+              linkedValue: 700
+            - name: SmBd
               value: 600
             - name: Bold
               value: 700
-            - name: ExtraBold
+            - name: XBd
               value: 800
-            - name: Black
-              value: 900
   validation:
-    # The following is just for the placeholder font. Delete it and begin your
-    # testing with no exclusions.
+    profile_modules:
+      - fontbakery.profiles.universal
+      - fontbakery.profiles.microsoft
+
+_ms_common: # Settings specific to the Microsoft fonts (upright and italic)
+  tables:
+    meta:
+      dlng: Latn
+      slng: Latn
+      bild: '{toolchain_versions}; project git revision: {git_revision}'
+    name:
+      1: Spectrum Now
+      5: Version 1.00
+      8: The Monotype Corporation
+      11: https://microsoft.com/
+      12: https://mattesontypographics.com/
+      13: 'Microsoft supplied font. You may use this font to create, display, and print content as permitted by the license terms or terms of use, of the Microsoft product, service, or content in which this font was included. You may only (i) embed this font in content as permitted by the embedding restrictions included in this font; and (ii) temporarily download this font to a printer or other output device to help print content. Any other use is prohibited.'
+      14: https://docs.microsoft.com/typography/about
+    OS/2:
+      achVendID: 'TMC '
+      sTypoAscender: 1118
+      sTypoDescender: -288
+      sTypoLineGap: 0
+      usWinAscent: 1118
+      usWinDescent: 288
+      fsType: 8
+  validation:
+    validation_group: ms
     exclude:
-      - com.google.fonts/check/whitespace_glyphs
-      - com.google.fonts/check/os2_metrics_match_hhea
+      - com.google.fonts/check/varfont/regular_opsz_coord # Regular opsz coordinate is 6
+
+_mt_common: # Settings specific to the Monotype fonts (upright and italic)
+  release_dir: Release/Release_MT
+  build_options:
+    flatten_components: True
+  action_scripts:
+    - Source/build_actions.py
+  actions:
+    - name: remove_name_id
+      argument: (10, 16, 17)
+    - name: remove_tables
+      argument: 'meta'
+  tables:
+    name:
+      1: Spectrum Now Var
+      5: Version 1.00m
+      8: Monotype Imaging Inc.
+      11: http://www.monotype.com/
+      12: http://www.monotype.com/
+      13: 'This font software is the property of Monotype Imaging Inc., or one of its affiliated entities (collectively, Monotype) and its use by you is covered under the terms of a license agreement. You have obtained this font software either directly from Monotype or together with software distributed by one of the licensees of Monotype. This software is a valuable asset of Monotype. Unless you have entered into a specific license agreement granting you additional rights, your use of this software is limited by the terms of the actual license agreement you have entered into with Monotype. You may not copy or distribute this software. If you have any questions concerning your rights you should review the license agreement you received with the software. You can learn more about Monotype by clicking here: www.monotype.com.'
+      14: http://www.monotype.com/
+    head:
+      fontRevision: '{font_version}'
+    OS/2:
+      achVendID: 'MONO'
+      sTypoAscender: 708
+      sTypoDescender: -297
+      sTypoLineGap: 200
+      usWinAscent: 1102
+      usWinDescent: 288
+      fsType: 4
+    hhea:
+      ascent: 1102
+      descent: -288
+  validation:
+    validation_group: mt
+    exclude:
+      - com.microsoft/check/fstype # different fsType for MT font
+      - com.google.fonts/check/os2_metrics_match_hhea # vertical metrics for MT fonts deviate from MS fonts
+      - com.google.fonts/check/linegaps # vertical metrics for MT fonts deviate from MS fonts
+      - com.microsoft/check/license_description # no NID 10 for MT font
+      - com.microsoft/check/vendor_url # different vendor URL for MT font
+      - com.adobe.fonts/check/postscript_name # underscore is part of MT name guideline. Checked with QE
+
+_roman_common: # Settings specific for the upright fonts (Microsoft AND Monotype)
+  tables:
+    STAT:
+      axes:
+        - tag: ital
+          name: Italic
+          ordering: 2
+          values:
+            - name: Regular
+              value: 0
+              flags: 0x2
+              linkedValue: 1
+
+_italic_common: # Settings specific for the italic fonts (Microsoft AND Monotype)
+  tables:
+    STAT:
+      axes:
+        - tag: ital
+          name: Italic
+          ordering: 2
+          values:
+            - name: Italic
+              value: 1
